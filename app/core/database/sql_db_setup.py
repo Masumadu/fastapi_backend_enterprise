@@ -1,0 +1,24 @@
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+
+from config import settings
+
+# reminder: for establishing a connection to postgres
+engine = create_engine(settings.SQLALCHEMY_DATABASE_URI)
+
+# reminder: for communicating or talking to postgres
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+Base = declarative_base()
+
+db = SessionLocal()
+
+
+# Dependency
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

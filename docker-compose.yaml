@@ -1,0 +1,66 @@
+version: "3.8"
+services:
+  backend:
+    build: .
+    container_name: "fastapi_enterprise"
+    environment:
+      APP_NAME: ${APP_NAME}
+      FASTAPI_CONFIG: ${FASTAPI_CONFIG}
+      SECRET_KEY: ${SECRET_KEY}
+      DB_ENGINE: ${DB_ENGINE}
+      DB_USER: ${DB_USER}
+      DB_PORT: ${DB_PORT}
+      DB_HOST: ${DB_HOST}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      REDIS_SERVER: ${REDIS_SERVER}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_PORT: ${REDIS_PORT}
+      MAIL_SERVER: ${MAIL_SERVER}
+      MAIL_SERVER_PORT: ${MAIL_SERVER_PORT}
+      DEFAULT_MAIL_SENDER_ADDRESS: ${DEFAULT_MAIL_SENDER_ADDRESS}
+      DEFAULT_MAIL_SENDER_PASSWORD: ${DEFAULT_MAIL_SENDER_PASSWORD}
+      DEFAULT_MAIL_USERNAME: ${DEFAULT_MAIL_USERNAME}
+      ADMIN_MAIL_ADDRESSES: ${ADMIN_MAIL_ADDRESSES}
+    command: ./gunicorn_starter.sh
+    ports:
+      - "5000:5000"
+    networks:
+      - fastapi_enterprise
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+          condition: service_healthy
+
+  db:
+    image: postgres:12
+    container_name: "postgres_enterprise"
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - $PWD/.dbdata:/var/lib/postgres
+    ports:
+      - "5430:5432"
+    networks:
+      - fastapi_enterprise
+    healthcheck:
+        test: ["CMD", "pg_isready",  "-U", "${DB_USER}", "-d", "${DB_NAME}"]
+
+  redis:
+    image: redis:6.2.6-alpine
+    container_name: "redis_enterprise"
+    command: redis-server --requirepass admin
+    ports:
+      - "6378:6379"
+    networks:
+      - fastapi_enterprise
+    healthcheck:
+        test: ["CMD", "redis-cli", "ping"]
+
+networks:
+  fastapi_enterprise:
+    name: enterprise_network

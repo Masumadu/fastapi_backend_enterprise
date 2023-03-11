@@ -1,0 +1,47 @@
+#Local Setup Variables
+# Application
+APP_NAME=app_name
+FASTAPI_CONFIG=config_environment eg [ development|testing|production ]
+SECRET_KEY=a73221267ab330ace2738316beca97c7bd8295240f32febcf1194dbd555727b7ecfd2a175d668185de0a6c39d742b970a94a0c38a3b2baf4de9098d647e8df32dc6d5729dce3537645b9a47623ffa2bd8dd227eac9b7fc57dfccd5bcfaf0d4a26c4c75fcd91ca07e1569e3244880eadd58ec48351d1fe2008f92f4b8e1bce98c
+# Postgres
+DB_ENGINE=POSTGRES
+DB_HOST=localhost
+DB_PORT=port_number
+DB_USER=user
+DB_PASSWORD=password
+DB_NAME=database_name
+# Redis
+REDIS_SERVER=localhost
+REDIS_PORT=port_number
+REDIS_PASSWORD=password
+# Mail Server
+MAIL_SERVER=mail_server eg [ mail.domain.com ]
+MAIL_SERVER_PORT=server_port
+DEFAULT_MAIL_SENDER_ADDRESS=mail_address_to_use_for_mailing_operations
+DEFAULT_MAIL_SENDER_PASSWORD=address_password
+DEFAULT_MAIL_USERNAME=sender_name
+ADMIN_MAIL_ADDRESSES=mail_to_receive_mail_from_application
+
+#Docker Compose Setup Variables
+# Application
+APP_NAME=app_name
+FASTAPI_CONFIG=config_environment eg [ development|testing|production ]
+SECRET_KEY=a73221267ab330ace2738316beca97c7bd8295240f32febcf1194dbd555727b7ecfd2a175d668185de0a6c39d742b970a94a0c38a3b2baf4de9098d647e8df32dc6d5729dce3537645b9a47623ffa2bd8dd227eac9b7fc57dfccd5bcfaf0d4a26c4c75fcd91ca07e1569e3244880eadd58ec48351d1fe2008f92f4b8e1bce98c
+# Postgres
+DB_ENGINE=POSTGRES
+DB_HOST=database_service_name
+DB_PORT=port_number
+DB_USER=user
+DB_PASSWORD=password
+DB_NAME=database_name
+# Redis
+REDIS_SERVER=redis_service_name
+REDIS_PORT=port_number
+REDIS_PASSWORD=password
+# Mail Server
+MAIL_SERVER=mail_server eg [ mail.domain.com ]
+MAIL_SERVER_PORT=server_port
+DEFAULT_MAIL_SENDER_ADDRESS=mail_address_to_use_for_mailing_operations
+DEFAULT_MAIL_SENDER_PASSWORD=address_password
+DEFAULT_MAIL_USERNAME=sender_name
+ADMIN_MAIL_ADDRESSES=mail_to_receive_mail_from_applicationDMIN_MAIL_ADDRESSES=michaelasumadu1@gmail.com

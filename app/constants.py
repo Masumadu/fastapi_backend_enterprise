@@ -1,0 +1,6 @@
+APPLICATION_NAME = "enterprise_application"
+LOG_HEADER = f"{APPLICATION_NAME}_log"
+TESTING_ENVIRONMENT = "testing"
+PRODUCTION_ENVIRONMENT = "production"
+DEVELOPMENT_ENVIRONMENT = "development"
+ENV_ERROR= "invalid environment: {}"

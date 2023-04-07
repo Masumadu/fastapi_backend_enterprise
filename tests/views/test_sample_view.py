@@ -1,5 +1,7 @@
 import pytest
+
 from tests.base_test_case import BaseTestCase
+
 
 class TestSampleView(BaseTestCase):
     @pytest.mark.view
@@ -22,7 +24,9 @@ class TestSampleView(BaseTestCase):
 
     @pytest.mark.view
     def test_create(self, setup):
-        response = setup.post("/prefix/create/", json=self.sample_test_data.create_sample)
+        response = setup.post(
+            "/prefix/create/", json=self.sample_test_data.create_sample
+        )
         response_data = response.json()
         assert response.status_code == 201
         assert response_data

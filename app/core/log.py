@@ -1,9 +1,10 @@
+import json
 import logging
 from datetime import datetime
 from logging.handlers import SMTPHandler
 from threading import Thread
+
 from config import settings
-import json
 
 
 def get_full_class_name(obj):

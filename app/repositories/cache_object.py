@@ -1,7 +1,9 @@
 import json
+
+from fastapi.encoders import jsonable_encoder
+
 from app.core.database import Base
 from app.services import RedisService
-from fastapi.encoders import jsonable_encoder
 
 
 def obj_serializer(obj_data: Base, cache_key: str, redis_instance: RedisService):

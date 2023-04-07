@@ -1,8 +1,10 @@
-import pytest
-from tests.base_test_case import BaseTestCase
-from app.models import SampleModel
-from app.core.exceptions import AppException
 import uuid
+
+import pytest
+
+from app.core.exceptions import AppException
+from app.models import SampleModel
+from tests.base_test_case import BaseTestCase
 
 
 class TestSampleController(BaseTestCase):

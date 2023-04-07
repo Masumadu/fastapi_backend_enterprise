@@ -2,7 +2,9 @@ import os
 
 from dotenv import load_dotenv
 from pydantic import BaseSettings
+
 from app import constants
+
 
 class BaseConfig(BaseSettings):
     # reminder: general application settings

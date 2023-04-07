@@ -1,45 +1,80 @@
-# Backend Directory Structure With Fastapi, Postgres And Redis For Rest API Development
+<div align="center">
+  <h1><b>FASTAPI POSTGRES BACKEND APPLICATION</b></h1>
+  <h4>A Design Template For Building Enterprise Level Backend Applications Using Fastapi And Postgres</h4>
+</div>
 
-### This is a directory structure for developing backend application using fastapi and postgres
+## 📗 Table of Contents
 
-### This directory structure is built with Python Poetry and uses the Factory Design Pattern with Clean Code Practices
+- [📖 About the Project](#about-project)
+  - This is a fastapi backend application architecture to help developers kickstart their
+  - development without worrying about how to structure, design or architect their projects.
+  - Developers a free to clone the project and modify it to suit their needs.
+    - [👀 Overview](#overview)
+      - Design template for enterprise level backend application using fastapi.
+    - [🛠 Built With](#built-with)
+      - Python
+      - Poetry
+      - [Tech Stack](#tech-stack)
+        - FastApi
+        - Postgres
+        - Redis
+      - [Key Features](#key-features)
+        - Factory Design Pattern
+        - Decorator Pattern
+        - Clean Code Approach
+        - Model View Controller (MVC) Design Pattern
+- [💪 Motivation](#motivation)
+  - When I started as a python backend developer, I always struggled when it comes to designing,
+  - structuring or architecting my application to suit the growing needs of my clients.
+  - I read a lot of books about software architecture and design principles. These helped
+  - me to come up with this design to help serve as a template for new developers. This can
+  - serve as a guide for new python developers to build upon.
+- [💻 Getting Started](#getting-started)
+  - [⚙️ Prerequisites](#prerequisites)
+    - python3
+    - python3-venv
+    - poetry
+    - postgres
+    - redis
+    - git
+  - [⚙️ Install](#setup)
+    - install the various tools listed under prerequisite on your local machine
+    - for instructions on how to install and set up these tools, please check their websites for directions
+  - [⚙️ Setup](#install)
+    - from your terminal, navigate to your preferred directory location on your machine
+    - clone the repository into a directory of your choice
+    - navigate into this directory
+    - create a virtual environment and activate it by executing below commands
+      - for linux, run
+        1. `python3 -m venv venv`
+        2. `source venv/bin/activate` for linux
+      - for windows, run
+        1. `python3 -m venv venv`
+        2. `venv\Scripts\activate`
+  - [Usage](#usage)
+    - with the virtual environment activated, run blow commands to install dependencies
+      1. `poetry install`
+    - after installing dependencies, run below command to start application
+      1. `uvicorn app.asgi:app`
+    - access application on http://localhost:8000
+  - [Run tests](#run-tests)
+    - To run the unit tests cases, run below command
+      - `pytest -v`
+  - [Deployment](#triangular_flag_on_post-deployment)
+    - TODO
+- [👥 Authors](#authors)
+  - Michael Asumadu
+    - email ✉️ : michaelasumadu10@gmail.com
+    - country 🌍 : Ghana 🇬🇭
+    - contact 📞 : +233 247 049 596
+- [⭐️ Show your support](#support)
+  - If you like this project, please leave a star 😁
+- [🙏 Acknowledgements](#acknowledgements)
+  - Thanks to everyone who helped
+- [❓ FAQ (OPTIONAL)](#faq)
+  - **Can I reuse this code?**
+    - Yes, feel free to fork it
+  - **Can we improve it?**
+    - Yes, feel free to send a pull request
 
-#### The directory structure incorporates pre-commit hooks with several python linters
-
-### Testing has been incorporated into the directory with pytest for unit tests
-
-## DEPENDENCIES
-- Python
-- Poetry
-- Postgres
-- Redis
-- Docker
-- Docker-Compose
-
-# USAGE:
-  ## Local Development Setup
-  - clone repository to your preferred location on your local development
-  - create a file '.env' in the project root directory
-  - set environment variables by referencing file 'env'
-  - from the terminal, change directory to your project root directory
-  - activate a python virtual environment in your terminal
-  - run
-    1. `poetry install` to install dependencies
-    2. `uvicorn app.asgi:app` to start application
-  - visit http://localhost:8000/ to access application
-  - run `pytest -v` to run unit tests
-
-
-  ## Docker Compose Setup
-  - clone repository to your preferred location on your local development
-  - create a file '.env' in the root directory
-  - set environment variables by referencing file 'env'
-  - from the terminal, change directory to your root directory
-  - run
-    1. `docker-compose up --build` to start application with docker
-- visit http://localhost:5000/ to access application
-
-
-The structure can be modified to suit your needs to help kickstart application development fast.
-With this directory structure, developers can spend less time thinking about how to structure
-a fastapi application with postgres and rather focus on the business logic
+<p align="right">(<a href="#readme-top">back to top</a>)</p>

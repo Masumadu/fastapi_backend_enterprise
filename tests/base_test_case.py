@@ -1,16 +1,18 @@
-import pytest
+import os
+import uuid
+from datetime import datetime, timedelta
+
 import fakeredis
-from app.core.database import Base, engine, db
+import pytest
 from fastapi.testclient import TestClient
-from app.models import SampleModel
+
+from app import constants
 from app.controllers import SampleController
+from app.core.database import Base, db, engine
+from app.models import SampleModel
 from app.repositories import SampleRepository
 from app.utils import JwtAuthentication
 from tests.data import SampleTestData
-from datetime import datetime, timedelta
-import uuid
-import os
-from app import constants
 
 
 @pytest.mark.usefixtures("app")
@@ -20,7 +22,9 @@ class BaseTestCase:
     @pytest.fixture
     def setup(self, app, mocker):
         config_env = os.getenv("FASTAPI_CONFIG")
-        assert config_env == constants.TESTING_ENVIRONMENT, constants.ENV_ERROR.format(config_env)
+        assert config_env == constants.TESTING_ENVIRONMENT, constants.ENV_ERROR.format(
+            config_env
+        )
         self.access_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"  # noqa: E501
         self.refresh_token = self.access_token
         self.headers = {"Authorization": f"Bearer {self.access_token}"}
@@ -43,7 +47,7 @@ class BaseTestCase:
         self.sample_repository = SampleRepository(redis_service=self.redis)
         self.sample_controller = SampleController(
             sample_repository=self.sample_repository,
-            jwt_authentication=self.jwt_authentication
+            jwt_authentication=self.jwt_authentication,
         )
 
     def setup_patches(self, mocker):
@@ -53,7 +57,7 @@ class BaseTestCase:
         self.jwt_decode = mocker.patch(
             "app.utils.auth.jwt.decode",
             return_value={
-            "id": str(uuid.uuid4()),
-            "expires": str(datetime.utcnow() + timedelta(minutes=30))
-            }
+                "id": str(uuid.uuid4()),
+                "expires": str(datetime.utcnow() + timedelta(minutes=30)),
+            },
         )

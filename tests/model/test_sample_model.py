@@ -1,6 +1,8 @@
 import pytest
+
 from app.models import SampleModel
 from tests.base_test_case import BaseTestCase
+
 
 class TestSampleModels(BaseTestCase):
     @pytest.mark.model

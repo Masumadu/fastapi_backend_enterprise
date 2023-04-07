@@ -23,6 +23,7 @@ class BaseConfig(BaseSettings):
     redis_password: str
     # reminder: jwt config
     jwt_algorithm: str = "HS256"
+
     # MAIL CONFIGURATION
     mail_server: str
     mail_server_port: str

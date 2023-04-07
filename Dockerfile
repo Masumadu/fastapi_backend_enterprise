@@ -1,8 +1,11 @@
-FROM python:3.9-slim as base
+FROM python:3.10-slim as base
 
 FROM base as builder
 
+RUN apt-get update && apt-get upgrade -y && apt-get install python3-dev -y && apt-get install libc-dev && apt-get install gcc -y
+
 RUN mkdir /install
+
 WORKDIR /install
 
 COPY requirements.txt /requirements.txt
@@ -19,6 +22,6 @@ COPY . /app_dir
 
 WORKDIR /app_dir
 
-EXPOSE 5000
+EXPOSE 8000
 
 CMD "./gunicorn_starter.sh"

@@ -12,22 +12,42 @@ class SampleController:
         self.sample_repository = sample_repository
         self.jwt_authentication = jwt_authentication
 
-    def index(self):
-        result = self.sample_repository.index()
+    def get_resource(self, query_params: dict):
+        resource_id: str = query_params.get("resource_id")
+        if resource_id:
+            try:
+                result = self.sample_repository.find_by_id(resource_id)
+            except AppException.NotFoundException:
+                raise AppException.NotFoundException(
+                    error_message="resource does not exist"
+                )
+        else:
+            result = self.sample_repository.index()
         return result
 
-    def save(self, obj_data):
+    def create_resource(self, obj_data: dict):
         data = self.sample_repository.create(obj_data)
         return data
 
-    def find(self, obj_id):
-        try:
-            data = self.sample_repository.get_by_id(obj_id)
-        except AppException.NotFoundException:
-            raise AppException.BadRequest(error_message="bad operation")
+    def update_resource(self, obj_id, obj_data: dict):
+        obj_data = {key: value for key, value in obj_data.items() if value}
+        data = self.sample_repository.update_by_id(obj_id, obj_data)
         return data
 
-    def token(self):
-        token: dict = self.jwt_authentication.generate_token(user_id=str(uuid.uuid4()))
+    def delete(self, obj_id):
+        try:
+            self.sample_repository.delete_by_id(obj_id)
+        except AppException.NotFoundException:
+            raise AppException.BadRequest(error_message="resource does not exist")
+        return None
+
+    def get_token(self):
+        token: dict = self.jwt_authentication.get_token(user_id=str(uuid.uuid4()))
+
+        return token
+
+    def refresh_token(self, obj_data: dict):
+        refresh_token = obj_data.get("refresh_token")
+        token: dict = self.jwt_authentication.refresh_token(refresh_token)
 
         return token

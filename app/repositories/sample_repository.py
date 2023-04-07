@@ -75,3 +75,38 @@ class SampleRepository(SQLBaseRepository):
             return object_data
         except HTTPException:
             return super().find_by_id(obj_id)
+
+    def update_by_id(self, obj_id: str, obj_in: dict):
+        postgres_data = super().update_by_id(obj_id, obj_in)
+        try:
+            redis_data = self.redis_service.get(SINGLE_RECORD_CACHE_KEY.format(obj_id))
+            if redis_data:
+                self.redis_service.delete(SINGLE_RECORD_CACHE_KEY.format(obj_id))
+            object_data = obj_serializer(
+                obj_data=postgres_data,
+                redis_instance=self.redis_service,
+                cache_key=SINGLE_RECORD_CACHE_KEY.format(postgres_data.id),
+            )
+            _ = objs_serializer(
+                obj_data=super().index(),
+                redis_instance=self.redis_service,
+                cache_key=ALL_RECORDS_CACHE_KEY,
+            )
+            return object_data
+        except HTTPException:
+            return super().update_by_id(obj_id, obj_in)
+
+    def delete_by_id(self, obj_id):
+        postgres_data = super().delete_by_id(obj_id)
+        try:
+            redis_data = self.redis_service.get(SINGLE_RECORD_CACHE_KEY.format(obj_id))
+            if redis_data:
+                self.redis_service.delete(SINGLE_RECORD_CACHE_KEY.format(obj_id))
+            _ = objs_serializer(
+                obj_data=super().index(),
+                redis_instance=self.redis_service,
+                cache_key=ALL_RECORDS_CACHE_KEY,
+            )
+            return postgres_data
+        except HTTPException:
+            return super().delete_by_id(obj_id)

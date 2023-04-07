@@ -67,11 +67,11 @@ class SQLBaseRepository(CRUDRepositoryInterface):
             for field in obj_in:
                 if hasattr(db_obj, field):
                     setattr(db_obj, field, obj_in[field])
-            self.db.session.add(db_obj)
-            self.db.session.commit()
+            self.db.add(db_obj)
+            self.db.commit()
             return db_obj
         except DBAPIError as exc:
-            self.db.session.rollback()
+            self.db.rollback()
             raise AppException.OperationError(error_message=exc.orig.args[0])
 
     def update(self, query_info, obj_in):
@@ -85,11 +85,11 @@ class SQLBaseRepository(CRUDRepositoryInterface):
             for field in obj_in:
                 if hasattr(db_obj, field):
                     setattr(db_obj, field, obj_in[field])
-            self.db.session.add(db_obj)
-            self.db.session.commit()
+            self.db.add(db_obj)
+            self.db.commit()
             return db_obj
         except DBAPIError as exc:
-            self.db.session.rollback()
+            self.db.rollback()
             raise AppException.OperationError(error_message=exc.orig.args[0])
 
     def find_by_id(self, obj_id) -> Base:
@@ -150,8 +150,8 @@ class SQLBaseRepository(CRUDRepositoryInterface):
 
         db_obj = self.find_by_id(obj_id)
         try:
-            self.db.session.delete(db_obj)
-            self.db.session.commit()
+            self.db.delete(db_obj)
+            self.db.commit()
         except DBAPIError as exc:
-            self.db.session.rollback()
+            self.db.rollback()
             raise AppException.OperationError(error_message=exc.orig.args[0])

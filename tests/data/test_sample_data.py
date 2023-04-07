@@ -12,3 +12,9 @@ class SampleTestData:
             "title": "new_title",
             "content": "new_content",
         }
+
+    @property
+    def update_sample(self):
+        return {
+            "content": "updated_content",
+        }

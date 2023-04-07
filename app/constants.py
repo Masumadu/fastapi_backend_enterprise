@@ -1,4 +1,4 @@
-APPLICATION_NAME = "enterprise_application"
+APPLICATION_NAME = "fastapi_postgres_backend"
 LOG_HEADER = f"{APPLICATION_NAME}_log"
 TESTING_ENVIRONMENT = "testing"
 PRODUCTION_ENVIRONMENT = "production"

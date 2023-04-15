@@ -9,27 +9,27 @@ from app import constants
 class BaseConfig(BaseSettings):
     # reminder: general application settings
     app_name: str = constants.APPLICATION_NAME
-    secret_key: str
+    secret_key: str = ""
     log_header: str = constants.LOG_HEADER
     # reminder: postgres database config
-    db_host: str
-    db_user: str
-    db_password: str
-    db_name: str
-    db_port: str
+    db_host: str = ""
+    db_user: str = ""
+    db_password: str = ""
+    db_name: str = ""
+    db_port: int = 5432
     # reminder: redis server config
-    redis_server: str
-    redis_port: int
-    redis_password: str
+    redis_server: str = ""
+    redis_port: str = ""
+    redis_password: int = 6379
     # reminder: jwt config
     jwt_algorithm: str = "HS256"
 
     # MAIL CONFIGURATION
-    mail_server: str
-    mail_server_port: str
-    default_mail_sender_address: str
-    default_mail_sender_password: str
-    admin_mail_addresses: str
+    mail_server: str = ""
+    mail_server_port: str = ""
+    default_mail_sender_address: str = ""
+    default_mail_sender_password: str = ""
+    admin_mail_addresses: str = ""
 
     @property
     def SQLALCHEMY_DATABASE_URI(self):  # noqa

@@ -73,7 +73,7 @@
     - run below command
       - `pytest -v`
   - [🚀 Deployment](#triangular_flag_on_post-deployment)
-    - TODO
+    - deployed to docker registry using github actions
 - [👥 Author](#author)
   - Michael Asumadu
     - email ✉️ : michaelasumadu10@gmail.com

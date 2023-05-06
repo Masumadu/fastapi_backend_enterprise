@@ -41,7 +41,6 @@ htmlcov/
 .tox/
 .nox/
 .coverage
-.coveragerc
 .coverage.*
 .cache
 nosetests.xml
@@ -152,6 +151,5 @@ cython_debug/
 *private_key.pem
 *public_key.pub
 
-# ignore docker compose file
-docker-compose-dev*
-.dbdata
+# ignore files with this naming pattern
+ignore*

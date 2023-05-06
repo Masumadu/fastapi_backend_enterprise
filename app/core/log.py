@@ -1,4 +1,3 @@
-import json
 import logging
 from datetime import datetime
 from logging.handlers import SMTPHandler
@@ -27,17 +26,6 @@ def get_error_context(
     }
 
 
-def log_message_struct(record):
-    return {
-        settings.app_name: {
-            record.levelname: {
-                "timestamp": record.asctime,
-                "message": record.message,
-            }
-        }
-    }
-
-
 class MailHandler(SMTPHandler):
     def emit(self, record):
         """
@@ -47,38 +35,13 @@ class MailHandler(SMTPHandler):
         Thread(target=self.send_mail, kwargs={"record": record}).start()
 
     def send_mail(self, record):
-        try:
-            import email.utils
-            import smtplib
-            from email.message import EmailMessage
-
-            port = self.mailport
-            if not port:
-                port = smtplib.SMTP_PORT
-            smtp = smtplib.SMTP(self.mailhost, port, timeout=30)
-            msg = EmailMessage()
-            msg["From"] = self.fromaddr
-            msg["To"] = ",".join(self.toaddrs)
-            msg["Subject"] = self.getSubject(record)
-            msg["Date"] = email.utils.localtime()
-            msg.set_content(self.format(record))
-            if self.username:
-                if self.secure is not None:
-                    smtp.ehlo()
-                    smtp.starttls(*self.secure)
-                    smtp.ehlo()
-                smtp.login(self.username, self.password)
-            smtp.send_message(msg)
-            smtp.quit()
-        except Exception as e:
-            print(e)
-            self.handleError(record)
+        self.timeout = 30
+        super().emit(record)
 
 
 class RequestFormatter(logging.Formatter):
     def format(self, record):
-        super().format(record)
-        return json.dumps(log_message_struct(record), indent=2)
+        return super().format(record)
 
 
 def log_config():
@@ -87,7 +50,7 @@ def log_config():
         "disable_existing_loggers": False,
         "loggers": {
             "root": {
-                "level": "ERROR",
+                "level": "DEBUG",
                 "handlers": [
                     "console_handler",
                     "error_file_handler",
@@ -100,7 +63,7 @@ def log_config():
                     "error_file_handler",
                     "error_mail_handler",
                 ],
-                "level": "ERROR",
+                "level": "DEBUG",
                 "propagate": False,
             },
             "gunicorn.access": {
@@ -163,12 +126,12 @@ def log_config():
             },
         },
         "formatters": {
-            "access_formatter": {
-                "format": "%(message)s",
-            },
+            "access_formatter": {"format": "%(message)s"},
             "error_formatter": {
                 "()": "app.core.log.RequestFormatter",
-                "format": "%(levelname)s%(asctime)s%(message)s",
+                "format": """
+                \n--- Logging %(levelname)s at %(asctime)s --- \n%(message)s
+                """,
                 "datefmt": "%Y-%m-%d %H:%M:%S",
             },
         },

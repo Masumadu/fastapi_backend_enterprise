@@ -155,6 +155,15 @@ cython_debug/
 .pre-commit-config.yaml
 
 #docker compose
-docker-compose-dev.yaml
-__pycache__
-.dbdata
+docker*
+Dockerfile
+
+# poetry
+poetry.lock
+pyproject.toml
+
+# readme
+README*
+
+# any other files
+.ignore*

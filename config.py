@@ -19,8 +19,8 @@ class BaseConfig(BaseSettings):
     db_port: int = 5432
     # reminder: redis server config
     redis_server: str = ""
-    redis_port: str = ""
-    redis_password: int = 6379
+    redis_port: int = 6379
+    redis_password: str = ""
     # reminder: jwt config
     jwt_algorithm: str = "HS256"
 
